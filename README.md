@@ -1,1 +1,1 @@
-# togethr-server
+# togethr
