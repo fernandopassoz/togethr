@@ -1,15 +1,33 @@
 {
-  "name": "togethr-server",
+  "name": "togethr",
   "version": "1.0.0",
   "main": "main.js",
   "repository": "git@github.com:fernandopassoz/togethr-server.git",
   "author": "Fernando Passos",
   "license": "MIT",
   "scripts": {
-    "dev": "node main.js"
+    "dev": "electron ."
   },
   "dependencies": {
+    "edit-json-file": "^1.6.2",
     "express": "^4.17.1",
-    "socket.io": "^4.4.0"
+    "iohook": "^0.9.3",
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0"
+  },
+  "devDependencies": {
+    "electron": "12.2.3"
+  },
+  "iohook": {
+    "targets": [
+      "electron-87"
+    ],
+    "platforms": [
+      "linux",
+      "win32"
+    ],
+    "arches": [
+      "x64"
+    ]
   }
 }

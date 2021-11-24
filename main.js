@@ -1,15 +1,24 @@
-const express = require('express');
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const port = process.env.PORT || 3000;
+const { app, BrowserWindow } = require('electron')
+const path = require("path");
 
-app.use(express.static(__dirname + '/public'));
+const createWindow = () => {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    resizable: false,
+    title: 'Togethr',
+    skipTaskbar: true,
+    autoHideMenuBar: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
 
-function onConnection(socket){
-  socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+  win.setMenuBarVisibility(false)
+  win.loadFile('index.html')
+
 }
 
-io.on('connection', onConnection);
-
-http.listen(port, () => console.log('listening on port ' + port));
+app.whenReady().then(() => {
+  createWindow()
+})

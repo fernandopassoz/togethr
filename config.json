@@ -1,0 +1,12 @@
+{
+    "server": true,
+    "address": "192.168.1.100",
+    "mousemove": false,
+    "mousedrag": true,
+    "mousewheel": true,
+    "mouseclick": true,
+    "mousedown": true,
+    "mouseup": true,
+    "keydown": true,
+    "keyup": true
+}
