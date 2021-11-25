@@ -1,10 +1,7 @@
 const ejf = require('edit-json-file')
-// const Server = require('./src/server/server')
-
+const {ipcRenderer} = require('electron')
 
 document.addEventListener('DOMContentLoaded', function(){
-    
-    // const srv = new Server()
 
     let file = ejf(`${__dirname}/config.json`)
 
@@ -20,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let mousedown = document.getElementById('mousedown')
     let keyup = document.getElementById('keyup')
     let keydown = document.getElementById('keydown')
+    let serverState = ipcRenderer.sendSync('server-state')
 
     server.checked = file.get('server')
     address.value = file.get('address')
@@ -34,7 +32,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
     startstop.addEventListener('click',function(event){
         event.preventDefault()
-        console.log('startstop');
+        // starts or stops server if server checkbox is enabled
+        ipcRenderer.send('start-stop-server', 'ok')
+        serverState = ipcRenderer.sendSync('server-state')
+        console.log(serverState);
     })
     connect.addEventListener('click',function(event){
         event.preventDefault()
@@ -42,29 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
     })
     server.addEventListener('change',function(event){
         console.log('server');
+        // enable startstop and disable the connect
     })
-    mousemove.addEventListener('click',function(event){
-        console.log('mousemove');
-    })
-    mousedrag.addEventListener('click',function(event){
-        console.log('mousedrag');
-    })
-    mousewheel.addEventListener('click',function(event){
-        console.log('mousewheel');
-    })
-    mouseclick.addEventListener('click',function(event){
-        console.log('mouseclick');
-    })
-    mousedown.addEventListener('click',function(event){
-        console.log('mousedown');
-    })
-    mouseup.addEventListener('click',function(event){
-        console.log('mouseup');
-    })
-    keyup.addEventListener('click',function(event){
-        console.log('keyup');
-    })
-    keydown.addEventListener('click',function(event){
-        console.log('keydown');
-    })
+
 })

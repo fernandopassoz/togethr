@@ -1,15 +1,15 @@
-const { Server } = require("socket.io");
+const { Server: ServerSocket } = require("socket.io");
 const ioHook = require('iohook');
 
-const io = new Server(3000);
 
 class Server{
     constructor(){
-
+      this.ioHook = ioHook
+      this.io = new ServerSocket(3000);
     }
 
     startServer(){
-        io.on("connection", (socket) => {
+        this.io.on("connection", (socket) => {
             ioHook.on('mousemove', (event) => {
               socket.emit('mousemove',event)
             });
@@ -43,11 +43,11 @@ class Server{
             });
           });
           ioHook.start();
+          
     }
 
     stopServer(){
-        ioHook.off()
-        io.off()
+        this.io.close()
     }
 }
 
